@@ -9,7 +9,7 @@ services:
 # Configurable proxy list support, see https://github.com/dgtlmoon/changedetection.io/wiki/Proxy-configuration#proxy-list-support
 #        - ./proxies.json:/datastore/proxies.json
 
-  #    environment:
+     environment:
   #        Default listening port, can also be changed with the -p option
   #      - PORT=5000
 
@@ -46,7 +46,7 @@ services:
   #      - USE_X_SETTINGS=1
   #
   #        Hides the `Referer` header so that monitored websites can't see the changedetection.io hostname.
-  #      - HIDE_REFERER=true
+       - HIDE_REFERER=true
   #        
   #        Default number of parallel/concurrent fetchers
   #      - FETCH_WORKERS=10
@@ -62,23 +62,23 @@ services:
      
      # If WEBDRIVER or PLAYWRIGHT are enabled, changedetection container depends on that
      # and must wait before starting (substitute "browser-chrome" with "playwright-chrome" if last one is used)
-#    depends_on:
-#        browser-chrome:
-#            condition: service_started
+   depends_on:
+       browser-chrome:
+           condition: service_started
 
-#    browser-chrome:
-#        hostname: browser-chrome
-#        image: selenium/standalone-chrome-debug:3.141.59
-#        environment:
-#            - VNC_NO_PASSWORD=1
-#            - SCREEN_WIDTH=1920
-#            - SCREEN_HEIGHT=1080
-#            - SCREEN_DEPTH=24
-#        volumes:
-#            # Workaround to avoid the browser crashing inside a docker container
-#            # See https://github.com/SeleniumHQ/docker-selenium#quick-start
-#            - /dev/shm:/dev/shm
-#        restart: unless-stopped
+   browser-chrome:
+       hostname: browser-chrome
+       image: selenium/standalone-chrome-debug:3.141.59
+       environment:
+           - VNC_NO_PASSWORD=1
+           - SCREEN_WIDTH=1920
+           - SCREEN_HEIGHT=1080
+           - SCREEN_DEPTH=24
+       volumes:
+           # Workaround to avoid the browser crashing inside a docker container
+           # See https://github.com/SeleniumHQ/docker-selenium#quick-start
+           - /dev/shm:/dev/shm
+       restart: unless-stopped
 
      # Used for fetching pages via Playwright+Chrome where you need Javascript support.
 
